@@ -1,4 +1,5 @@
 <h1>Gentes</h1>
+<p><a href="index.php?action=create">Crear un Usuario</a></p>
   <table>
     <thead>
       <tr>
@@ -25,7 +26,7 @@
         </td>
         <td>
           <a href="index.php?action=delete&id=<?=$person->id?>">
-            ;
+            &#128465;
           </a>
         </td>
       </tr>

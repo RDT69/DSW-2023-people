@@ -1,6 +1,7 @@
 <?php 
 namespace Jose\People\Controllers;
 
+use Illuminate\Support\Facades\Request;
 use Jose\People\Models\Person;
 
 class PersonController {
@@ -38,5 +39,17 @@ class PersonController {
     $person->name = $data['name'];
     $person->save();
     $this->list();
+  }
+
+  public function edit($id) {
+    $person = Person::find($id);
+    require('../src/views/person/edit.php');
+  }
+
+  public function update($id, $data) {
+     $person = Person::find($id);
+     $person->name = $data['name'];
+     $person->save();
+     $this->list();
   }
 }
