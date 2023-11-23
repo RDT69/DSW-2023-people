@@ -33,10 +33,9 @@
   </nav>
 <?php 
 if (isset($this->messages)){
-  foreach ($this->$messages as $message) {
+  foreach ($this->messages as $message) {
     $type = $message['type'];
     $text = $message ['text'];
     echo "<div class=\"message $type\">$text</div>";
   }
 }
-?>

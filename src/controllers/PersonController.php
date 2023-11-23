@@ -2,10 +2,11 @@
 
 namespace Jose\People\Controllers;
 
-use Illuminate\Support\Facades\Request;
+
 use Jose\People\Models\Person;
 
 class PersonController {
+
   private $messages = [];
 
   public function list() {
@@ -23,7 +24,7 @@ class PersonController {
       require('../src/views/person/show.php');
       require('../src/views/templates/foot.php');
     } else {
-      $messages [] = [
+      $this->messages [] = [
         'type' => 'error',
         'text' => "No se encuentra la persona con el id = $id"
       ];
@@ -36,7 +37,16 @@ class PersonController {
     $person = Person::find($id);
     //para comprobar que no existe la persona.
     if ($person) {
+      $this->messages [] = [
+        'type' => 'error',
+        'text' => "Se ha borrado a la persona con el id = $id"
+      ];
       $person->delete();
+    } else {
+      $this->messages [] = [
+        'type' => 'error',
+        'text' => "No se encuentra la persona con el id = $id"
+      ];
     }
     $this->list();
   }
@@ -59,16 +69,43 @@ class PersonController {
   public function edit($id)
   {
     $person = Person::find($id);
+    if ($person) {
     require('../src/views/templates/head.php');
     require('../src/views/person/edit.php');
     require('../src/views/templates/foot.php');
+    } else {
+      $this->messages [] = [
+        'type' => 'error',
+        'text' => "No se encuentra la persona con el id = $id"
+      ];
+    }
   }
 
   public function update($id, $data)
   {
     $person = Person::find($id);
-    $person->name = $data['name'];
-    $person->save();
-    $this->list();
+    if ($person) {
+      if(!empty($data['name'])) {
+        $person->name = $data['name'];
+        $person->save();
+        $this->messages [] = [
+          'type' => 'success',
+          'text' => "Se actualizo correctamente con el id = " .$person->id
+        ];
+        $this->edit($id);
+      } else {
+        $this->messages [] = [
+          'type' => 'error',
+          'text' => "El nombre no puede ser vacio"
+        ];
+        $this->edit($id);
+      }
+    } else {
+      $this->messages [] = [
+        'type' => 'error',
+        'text' => "No se encuentra la persona con el id = $id"
+      ];
+      $this->list();
+    }
   }
 }

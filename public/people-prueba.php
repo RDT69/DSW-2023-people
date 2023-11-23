@@ -6,12 +6,13 @@ use Jose\People\Models\Person;
 
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en">    nool    
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
 </head>
+
 <body>
   <h1>Gentes</h1>
   <table>
@@ -22,16 +23,20 @@ use Jose\People\Models\Person;
       </tr>
     </thead> 
     <tbody>
+
   <?php
     foreach (Person::all() as $person) {
   ?>
+
       <tr>
         <td><?=$person->id?></td>
         <td><?=$person->name?></td>
       </tr>
+
       <?php
   }
       ?>
+
     </tbody>
   </table>
 </body>
